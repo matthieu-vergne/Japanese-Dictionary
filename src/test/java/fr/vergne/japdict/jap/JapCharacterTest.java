@@ -7,19 +7,11 @@ import org.junit.Test;
 import fr.vergne.japdict.util.StringUtil;
 
 public class JapCharacterTest {
-	private static final char HIRAGANA_MIN = '\u3041';
-	private static final char HIRAGANA_MAX = '\u3096';
-	private static final char KATAKANA_MIN = '\u30A1';
-	private static final char KATAKANA_MAX = '\u30FA';
-	private static final char KANJI_RARE_MIN = '\u3400';
-	private static final char KANJI_RARE_MAX = '\u4DB5';
-	private static final char KANJI_MIN = '\u4E01';
-	private static final char KANJI_MAX = '\u9FAF';
 
 	private static String display(Character character) {
 		return character + " (\\u" + Integer.toHexString(character) + ")";
 	}
-
+	
 	@Test
 	public void testIsKanaTypeAndVariantCorrectForClassicHiraganas() {
 		for (Character character : StringUtil
@@ -266,9 +258,11 @@ public class JapCharacterTest {
 	@Test
 	public void testIsKanaTypeAndVariantFalseForAllNonKanas() {
 		for (int code = '\u0000'; code <= '\uFFFF'; code++) {
-			if (code >= HIRAGANA_MIN && code <= HIRAGANA_MAX) {
+			if (code >= JapUnicode.HIRAGANA_MIN
+					&& code <= JapUnicode.HIRAGANA_MAX) {
 				// ignore hiraganas
-			} else if (code >= KATAKANA_MIN && code <= KATAKANA_MAX) {
+			} else if (code >= JapUnicode.KATAKANA_MIN
+					&& code <= JapUnicode.KATAKANA_MAX) {
 				// ignore katakanas
 			} else {
 				String message = display((char) code) + " wrongly recognised";
@@ -295,7 +289,7 @@ public class JapCharacterTest {
 
 	@Test
 	public void testIsKanaTypeCorrectForAllHiraganas() {
-		for (char character = HIRAGANA_MIN; character <= HIRAGANA_MAX; character++) {
+		for (char character = JapUnicode.HIRAGANA_MIN; character <= JapUnicode.HIRAGANA_MAX; character++) {
 			String message = display(character) + " wrongly recognised";
 			assertTrue(message,
 					new JapCharacter(character).isKana(KanaType.HIRAGANA));
@@ -306,7 +300,7 @@ public class JapCharacterTest {
 
 	@Test
 	public void testIsKanaTypeCorrectForAllKatakanas() {
-		for (char character = KATAKANA_MIN; character <= KATAKANA_MAX; character++) {
+		for (char character = JapUnicode.KATAKANA_MIN; character <= JapUnicode.KATAKANA_MAX; character++) {
 			String message = display(character) + " wrongly recognised";
 			assertFalse(message,
 					new JapCharacter(character).isKana(KanaType.HIRAGANA));
@@ -318,9 +312,11 @@ public class JapCharacterTest {
 	@Test
 	public void testIsKanaTypeFalseForAllNonKanas() {
 		for (int character = '\u0000'; character <= '\uFFFF'; character++) {
-			if (character >= HIRAGANA_MIN && character <= HIRAGANA_MAX) {
+			if (character >= JapUnicode.HIRAGANA_MIN
+					&& character <= JapUnicode.HIRAGANA_MAX) {
 				// ignore hiraganas
-			} else if (character >= KATAKANA_MIN && character <= KATAKANA_MAX) {
+			} else if (character >= JapUnicode.KATAKANA_MIN
+					&& character <= JapUnicode.KATAKANA_MAX) {
 				// ignore katakanas
 			} else {
 				String message = display((char) character)
@@ -415,9 +411,11 @@ public class JapCharacterTest {
 	@Test
 	public void testIsKanaVariantFalseForAllNonKanas() {
 		for (int character = '\u0000'; character <= '\uFFFF'; character++) {
-			if (character >= HIRAGANA_MIN && character <= HIRAGANA_MAX) {
+			if (character >= JapUnicode.HIRAGANA_MIN
+					&& character <= JapUnicode.HIRAGANA_MAX) {
 				// ignore hiraganas
-			} else if (character >= KATAKANA_MIN && character <= KATAKANA_MAX) {
+			} else if (character >= JapUnicode.KATAKANA_MIN
+					&& character <= JapUnicode.KATAKANA_MAX) {
 				// ignore katakanas
 			} else {
 				String message = display((char) character)
@@ -440,11 +438,11 @@ public class JapCharacterTest {
 
 	@Test
 	public void testIsKanaTrueForAllKanas() {
-		for (char character = HIRAGANA_MIN; character <= HIRAGANA_MAX; character++) {
+		for (char character = JapUnicode.HIRAGANA_MIN; character <= JapUnicode.HIRAGANA_MAX; character++) {
 			String message = display(character) + " wrongly recognised";
 			assertTrue(message, new JapCharacter(character).isKana());
 		}
-		for (char character = KATAKANA_MIN; character <= KATAKANA_MAX; character++) {
+		for (char character = JapUnicode.KATAKANA_MIN; character <= JapUnicode.KATAKANA_MAX; character++) {
 			String message = display(character) + " wrongly recognised";
 			assertTrue(message, new JapCharacter(character).isKana());
 		}
@@ -453,9 +451,11 @@ public class JapCharacterTest {
 	@Test
 	public void testIsKanaFalseForAllNonKanas() {
 		for (int character = '\u0000'; character <= '\uFFFF'; character++) {
-			if (character >= HIRAGANA_MIN && character <= HIRAGANA_MAX) {
+			if (character >= JapUnicode.HIRAGANA_MIN
+					&& character <= JapUnicode.HIRAGANA_MAX) {
 				// ignore hiraganas
-			} else if (character >= KATAKANA_MIN && character <= KATAKANA_MAX) {
+			} else if (character >= JapUnicode.KATAKANA_MIN
+					&& character <= JapUnicode.KATAKANA_MAX) {
 				// ignore katakanas
 			} else {
 				String message = display((char) character)
@@ -468,11 +468,11 @@ public class JapCharacterTest {
 
 	@Test
 	public void testIsKanjiTrueForAllKanjis() {
-		for (char character = KANJI_MIN; character <= KANJI_MAX; character++) {
+		for (char character = JapUnicode.KANJI_MIN; character <= JapUnicode.KANJI_MAX; character++) {
 			String message = display(character) + " wrongly recognised";
 			assertTrue(message, new JapCharacter(character).isKanji());
 		}
-		for (char character = KANJI_RARE_MIN; character <= KANJI_RARE_MAX; character++) {
+		for (char character = JapUnicode.KANJI_RARE_MIN; character <= JapUnicode.KANJI_RARE_MAX; character++) {
 			String message = display(character) + " wrongly recognised";
 			assertTrue(message, new JapCharacter(character).isKanji());
 		}
@@ -481,10 +481,11 @@ public class JapCharacterTest {
 	@Test
 	public void testIsKanjiFalseForAllNonKanjis() {
 		for (int character = '\u0000'; character <= '\uFFFF'; character++) {
-			if (character >= KANJI_MIN && character <= KANJI_MAX) {
+			if (character >= JapUnicode.KANJI_MIN
+					&& character <= JapUnicode.KANJI_MAX) {
 				// ignore usual kanjis
-			} else if (character >= KANJI_RARE_MIN
-					&& character <= KANJI_RARE_MAX) {
+			} else if (character >= JapUnicode.KANJI_RARE_MIN
+					&& character <= JapUnicode.KANJI_RARE_MAX) {
 				// ignore rare kanjis
 			} else {
 				String message = display((char) character)
@@ -501,9 +502,11 @@ public class JapCharacterTest {
 			KanaType type = new JapCharacter((char) character).getKanaType();
 			String message = display((char) character) + " recognised as "
 					+ type;
-			if (character >= HIRAGANA_MIN && character <= HIRAGANA_MAX) {
+			if (character >= JapUnicode.HIRAGANA_MIN
+					&& character <= JapUnicode.HIRAGANA_MAX) {
 				assertEquals(message, KanaType.HIRAGANA, type);
-			} else if (character >= KATAKANA_MIN && character <= KATAKANA_MAX) {
+			} else if (character >= JapUnicode.KATAKANA_MIN
+					&& character <= JapUnicode.KATAKANA_MAX) {
 				assertEquals(message, KanaType.KATAKANA, type);
 			} else {
 				assertEquals(message, null, type);
@@ -518,7 +521,8 @@ public class JapCharacterTest {
 					.getKanaVariant();
 			String message = display((char) character) + " recognised as "
 					+ variant;
-			if (character >= HIRAGANA_MIN && character <= HIRAGANA_MAX) {
+			if (character >= JapUnicode.HIRAGANA_MIN
+					&& character <= JapUnicode.HIRAGANA_MAX) {
 				if ("ぱぴぷぺぽ".contains("" + (char) character)) {
 					assertEquals(message, KanaVariant.MARU, variant);
 				} else if ("ぁぃぅぇぉゕゖっゃゅょゎ".contains("" + (char) character)) {
@@ -529,7 +533,8 @@ public class JapCharacterTest {
 				} else {
 					assertEquals(message, KanaVariant.NONE, variant);
 				}
-			} else if (character >= KATAKANA_MIN && character <= KATAKANA_MAX) {
+			} else if (character >= JapUnicode.KATAKANA_MIN
+					&& character <= JapUnicode.KATAKANA_MAX) {
 				if ("パピプペポ".contains("" + (char) character)) {
 					assertEquals(message, KanaVariant.MARU, variant);
 				} else if ("ァィゥェォヵヶッャュョヮ".contains("" + (char) character)) {
@@ -542,165 +547,6 @@ public class JapCharacterTest {
 				}
 			} else {
 				assertEquals(message, null, variant);
-			}
-		}
-	}
-
-	@Test
-	public void testToVariantReturnsSelfWithSameVariant() {
-		for (char code = HIRAGANA_MIN; code <= HIRAGANA_MAX; code++) {
-			JapCharacter character = new JapCharacter(code);
-			JapCharacter result = character.toKanaVariant(character
-					.getKanaVariant());
-			assertEquals(character + " -> " + result, character, result);
-		}
-		for (char code = KATAKANA_MIN; code <= KATAKANA_MAX; code++) {
-			JapCharacter character = new JapCharacter(code);
-			JapCharacter result = character.toKanaVariant(character
-					.getKanaVariant());
-			assertEquals(character + " -> " + result, character, result);
-		}
-	}
-
-	@Test
-	public void testToVariantReturnsProperTenten() {
-		String original = "うかきくけこさしすせそたちつてとはひふへほぱぴぷぺぽウカキクケコサシスセソタチツテトハヒフヘホワヲヰヱパピプペポ";
-		String transfer = "ゔがぎぐげござじずぜぞだぢづでどばびぶべぼばびぶべぼヴガギグゲゴザジズゼゾダヂヅデドバビブベボヷヺヸヹバビブベボ";
-		for (int index = 0; index < original.length(); index++) {
-			JapCharacter result = new JapCharacter(original.charAt(index))
-					.toKanaVariant(KanaVariant.TENTEN);
-			JapCharacter expected = new JapCharacter(transfer.charAt(index));
-			assertEquals(expected, result);
-		}
-	}
-
-	@Test
-	public void testToVariantReturnsProperMaru() {
-		String original = "はひふへほばびぶべぼハヒフヘホバビブベボ";
-		String transfer = "ぱぴぷぺぽぱぴぷぺぽパピプペポパピプペポ";
-		for (int index = 0; index < original.length(); index++) {
-			JapCharacter result = new JapCharacter(original.charAt(index))
-					.toKanaVariant(KanaVariant.MARU);
-			JapCharacter expected = new JapCharacter(transfer.charAt(index));
-			assertEquals(expected, result);
-		}
-	}
-
-	@Test
-	public void testToVariantReturnsProperSmall() {
-		String original = "あいうえおかけつやゆよわゔがげづアイウエオカケツヤユヨワヴガゲヅヷ";
-		String transfer = "ぁぃぅぇぉゕゖっゃゅょゎぅゕゖっァィゥェォヵヶッャュョヮゥヵヶッヮ";
-		for (int index = 0; index < original.length(); index++) {
-			JapCharacter result = new JapCharacter(original.charAt(index))
-					.toKanaVariant(KanaVariant.SMALL);
-			JapCharacter expected = new JapCharacter(transfer.charAt(index));
-			assertEquals(expected, result);
-		}
-	}
-
-	@Test
-	public void testToVariantReturnsProperBase() {
-		String original = "ゔがぎぐげござじずぜぞだぢづでどばびぶべぼぱぴぷぺぽぁぃぅぇぉゕゖっゃゅょゎヴガギグゲゴザジズゼゾダヂヅデドバビブベボヷヺヸヹパピプペポァィゥェォヵヶッャュョヮ";
-		String transfer = "うかきくけこさしすせそたちつてとはひふへほはひふへほあいうえおかけつやゆよわウカキクケコサシスセソタチツテトハヒフヘホワヲヰヱハヒフヘホアイウエオカケツヤユヨワ";
-		for (int index = 0; index < original.length(); index++) {
-			JapCharacter result = new JapCharacter(original.charAt(index))
-					.toKanaVariant(KanaVariant.NONE);
-			JapCharacter expected = new JapCharacter(transfer.charAt(index));
-			assertEquals(expected, result);
-		}
-	}
-
-	@Test
-	public void testToVariantReturnsNullIfNotValid() {
-		for (int code = '\u0000'; code <= '\uFFFF'; code++) {
-			JapCharacter character = new JapCharacter((char) code);
-			if (code >= HIRAGANA_MIN && code <= HIRAGANA_MAX) {
-				if ("あいえおなにぬねのまみむめもやゆよらりるれろわをんゐゑ".contains("" + character)) {
-					assertEquals(null,
-							character.toKanaVariant(KanaVariant.TENTEN));
-				}
-				if ("あいうえおかきくけこさしすせそたちつてとなにぬねのまみむめもやゆよらりるれろわをんゐゑ".contains(""
-						+ character)) {
-					assertEquals(null,
-							character.toKanaVariant(KanaVariant.MARU));
-				}
-				if ("きくこさしすせそたちてとなにぬねのはひふへほまみむめもらりるれろをんゐゑ".contains(""
-						+ character)) {
-					assertEquals(null,
-							character.toKanaVariant(KanaVariant.SMALL));
-				}
-			} else if (code >= KATAKANA_MIN && code <= KATAKANA_MAX) {
-				if ("アイエオナニヌネノマミムメモヤユヨラリルレロン".contains("" + character)) {
-					assertEquals(null,
-							character.toKanaVariant(KanaVariant.TENTEN));
-				}
-				if ("アイウエオカキクケコサシスセソタチツテトナニヌネノマミムメモヤユヨラリルレロワヲンヰヱ".contains(""
-						+ character)) {
-					assertEquals(null,
-							character.toKanaVariant(KanaVariant.MARU));
-				}
-				if ("キクコサシスセソタチテトナニヌネノハヒフヘホマミムメモラリルレロヲンヰヱ".contains(""
-						+ character)) {
-					assertEquals(null,
-							character.toKanaVariant(KanaVariant.SMALL));
-				}
-			} else {
-				assertEquals(null, character.toKanaVariant(KanaVariant.NONE));
-				assertEquals(null, character.toKanaVariant(KanaVariant.TENTEN));
-				assertEquals(null, character.toKanaVariant(KanaVariant.MARU));
-				assertEquals(null, character.toKanaVariant(KanaVariant.SMALL));
-			}
-		}
-	}
-
-	@Test
-	public void testToTypeReturnsSelfWithSameType() {
-		for (char code = HIRAGANA_MIN; code <= HIRAGANA_MAX; code++) {
-			JapCharacter character = new JapCharacter(code);
-			JapCharacter result = character.toKanaType(character.getKanaType());
-			assertEquals(character + " -> " + result, character, result);
-		}
-		for (char code = KATAKANA_MIN; code <= KATAKANA_MAX; code++) {
-			JapCharacter character = new JapCharacter(code);
-			JapCharacter result = character.toKanaType(character.getKanaType());
-			assertEquals(character + " -> " + result, character, result);
-		}
-	}
-
-	@Test
-	public void testToTypeReturnsProperOtherType() {
-		for (char code = HIRAGANA_MIN; code <= HIRAGANA_MAX; code++) {
-			JapCharacter character = new JapCharacter(code);
-			JapCharacter expected = new JapCharacter((char) ((int) code
-					- HIRAGANA_MIN + KATAKANA_MIN));
-			JapCharacter result = character.toKanaType(KanaType.KATAKANA);
-			assertEquals(character + " -> " + result, expected, result);
-		}
-		for (char code = KATAKANA_MIN; code <= KATAKANA_MAX; code++) {
-			JapCharacter character = new JapCharacter(code);
-			JapCharacter expected;
-			if ("ヷヺヸヹ".contains("" + code)) {
-				expected = null;
-			} else {
-				expected = new JapCharacter(
-						(char) ((int) code - KATAKANA_MIN + HIRAGANA_MIN));
-			}
-			JapCharacter result = character.toKanaType(KanaType.HIRAGANA);
-			assertEquals(character + " -> " + result, expected, result);
-		}
-	}
-
-	@Test
-	public void testToTypeReturnsNullIfNotKana() {
-		for (int code = '\u0000'; code <= '\uFFFF'; code++) {
-			JapCharacter character = new JapCharacter((char) code);
-			if (code >= HIRAGANA_MIN && code <= HIRAGANA_MAX) {
-				// ignore hiraganas
-			} else if (code >= KATAKANA_MIN && code <= KATAKANA_MAX) {
-				// ignore katakanas
-			} else {
-				assertEquals(null, character.toKanaType(KanaType.HIRAGANA));
-				assertEquals(null, character.toKanaType(KanaType.KATAKANA));
 			}
 		}
 	}
